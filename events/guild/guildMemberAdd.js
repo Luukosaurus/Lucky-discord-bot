@@ -9,9 +9,9 @@ module.exports = (client, Discord , guildMember) =>{
     const user =  guildMember.guild.members.cache.get(guildMember.user.id)
     const welcomeEmbed = new Discord.MessageEmbed()
                 .setColor("#3042B1")
-                .setTitle("welkom ")
+                .setTitle("Welkom ")
+                .setThumbnail(guildMember.displayAvatarURL())
                 .setDescription(`Welkom bij de server ${user}`)
-                .setImage("https://www.brooklinspringfair.com/wp-content/uploads/2017/03/your-logo-here-318x300.png")
                 .setFooter("Vergeet niet om de regels te lezen");
     channel = guildMember.guild.systemChannel
     channel.send({embeds:[welcomeEmbed]});
