@@ -12,7 +12,8 @@ module.exports = {
             if(message.channel.id != "932393617727832105"){
                 message.channel.send("reactionroles only works in reactionrole channel")
                 return;
-            } 
+            }
+            await message.channel.bulkDelete(2); 
             let reactionroleembed = new Discord.MessageEmbed()
                 .setColor("#3042B1")
                 .setTitle("Choos your collor")
