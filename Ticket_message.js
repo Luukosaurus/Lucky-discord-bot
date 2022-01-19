@@ -49,8 +49,18 @@ module.exports = async (client,Discord) => {
                         if (member.permissions.has("MANAGE_CHANNELS")){
                             switch (reaction.emoji.name){
                                 case "🔒":
-                                    channel.permissionOverwrites.edit(ticketOwner,{SEND_MESSAGES: false})
-                                    break;
+                                    reaction.users.remove(user.id)
+                                    if(!channel.permissionsFor(channel.guild.roles.everyone).has("SEND_MESSAGES")){
+                                        channel.permissionOverwrites.edit(ticketOwner,{SEND_MESSAGES: true})
+                                        channel.permissionOverwrites.edit(channel.guild.roles.everyone,{SEND_MESSAGES: true})
+                                        channel.send("kanaal is niet meer op slot")
+                                        break;
+                                    } else {
+                                        channel.permissionOverwrites.edit(ticketOwner,{SEND_MESSAGES: false})
+                                        channel.permissionOverwrites.edit(channel.guild.roles.everyone,{SEND_MESSAGES: false})
+                                        channel.send("kanaal is op slot")
+                                        break;
+                                    }
                                 case "🚫":
                                     channel.send("kanaal wordt verwijdert")
                                     function deleteIfCan(){
