@@ -10,5 +10,5 @@ module.exports = (client, Discord) =>{
             client.on(eventName, event.bind(null, client, Discord));
         }
     }
-    ["client","guild"].forEach(e => load_dir(e));
+    ["client","guild","logs"].forEach(e => load_dir(e));
 }

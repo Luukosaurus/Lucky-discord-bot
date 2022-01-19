@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 require("dotenv").config();
 
-const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_MEMBERS","GUILD_MESSAGE_REACTIONS","GUILD_PRESENCES","GUILD_INTEGRATIONS"] }, {partials: ["MESSAGE", "CHANNEL" , "REACTION"]});
+const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_MEMBERS","GUILD_MESSAGE_REACTIONS","GUILD_PRESENCES","GUILD_INTEGRATIONS","GUILD_VOICE_STATES"] }, {partials: ["MESSAGE", "CHANNEL" , "REACTION"]});
 
 // const fs = require('fs');
 
