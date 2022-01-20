@@ -5,6 +5,9 @@ module.exports = (client,Discord,oldMember, newMember) =>{
     const logchannel = client.channels.cache.get("933466078145822720")
     const userid = oldMember.member.id
     const user = client.users.cache.get(userid)
+    if(oldMember.selfMute != newMember.selfMute) return;
+    if(oldMember.selfDeaf != newMember.selfDeaf) return;
+    if(oldMember.selfVideo != newMember.selfVideo) return;
     if(oldUserChannel && !newUserChannel)
     {
         const leftVoiceEmbed = new Discord.MessageEmbed()
