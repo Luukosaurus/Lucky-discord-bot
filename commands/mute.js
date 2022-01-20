@@ -30,14 +30,14 @@ module.exports = {
                 }
             } else {
                 const youCantMuteEmbed = new Discord.MessageEmbed()
-                .setColor("#3042B1")
+                .setColor("#FF0000")
                 .setTitle("Je hebt niet de permissies om " + user.user.username + " te mute")
 
                 message.channel.send({embeds: [youCantMuteEmbed]});
             }
         } else {
             const noUsernameEmbed = new Discord.MessageEmbed()
-            .setColor("#3042B1")
+            .setColor("#FF0000")
             .setTitle("Je moet een speler aangeven met @spelernaam");
 
             message.channel.send({embeds: [noUsernameEmbed]});

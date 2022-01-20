@@ -16,7 +16,7 @@ module.exports = {
                     await message.channel.send({embeds:[youKickedEmbed]});;
                 } catch {
                     const youCantKickStafEmbed = new Discord.MessageEmbed()
-                    .setColor("#3042B1")
+                    .setColor("#FF0000")
                     .setTitle("Je kan niet staf kicken")
 
                     message.channel.send({embeds:[youCantKickStafEmbed]});
@@ -24,14 +24,14 @@ module.exports = {
                 
             } else {
                 const youCantKickEmbed = new Discord.MessageEmbed()
-                .setColor("#3042B1")
+                .setColor("#FF0000")
                 .setTitle("Je hebt niet de permissies om " + user.user.username + "te kicken")
 
                 message.channel.send({embeds: [youCantKickEmbed]});
             }
         } else {
             const noUsernameEmbed = new Discord.MessageEmbed()
-            .setColor("#3042B1")
+            .setColor("#FF0000")
             .setTitle("Je moet een speler aangeven met @spelernaam");
 
             message.channel.send({embeds: [noUsernameEmbed]});

@@ -17,7 +17,7 @@ module.exports = {
                     await message.channel.send({embeds: [youBannedEmbed]});
                 } catch {
                     const youCantBanStafEmbed = new Discord.MessageEmbed()
-                    .setColor("#3042B1")
+                    .setColor("#FF0000")
                     .setTitle("Je kan niet staf verbannen")
 
                     message.channel.send({embeds:[youCantBanStafEmbed]});
@@ -25,14 +25,14 @@ module.exports = {
                 
             } else {
                 const youCantBanEmbed = new Discord.MessageEmbed()
-                .setColor("#3042B1")
+                .setColor("#FF0000")
                 .setTitle("Je hebt niet de permissies om " + user.user.username + " te verbannen")
 
                 message.channel.send({embeds:[youCantBanEmbed]});
             }
         } else {
             const noUsernameEmbed = new Discord.MessageEmbed()
-            .setColor("#3042B1")
+            .setColor("#FF0000")
             .setTitle("Je moet een speler aangeven met @spelernaam");
 
             message.channel.send({embeds: [noUsernameEmbed]});
