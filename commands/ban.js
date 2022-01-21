@@ -14,7 +14,13 @@ module.exports = {
                     .setColor("#3042B1")
                     .setTitle("Je verbande " + user.user.username);
 
-                    await message.channel.send({embeds: [youBannedEmbed]});
+                    await message.channel.send({embeds: [youBannedEmbed]})
+                    const logchannel = client.channels.cache.get("933466078145822720")
+                    const bannedLogEmbed = new Discord.MessageEmbed()
+                    .setColor("#FF0000")
+                    .setTitle("banlog")
+                    .setDescription(`${message.author} banned ${member}`)
+                    logchannel.send({embeds:[bannedLogEmbed]})
                 } catch {
                     const youCantBanStafEmbed = new Discord.MessageEmbed()
                     .setColor("#FF0000")

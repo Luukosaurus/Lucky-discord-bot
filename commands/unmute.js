@@ -18,7 +18,13 @@ module.exports = {
                     try{
                         await memberTarget.roles.remove(muterole);
                         await memberTarget.roles.add(memberrole);
-                        await message.channel.send({embeds:[youUnmutedEmbed]});
+                        await message.channel.send({embeds:[youUnmutedEmbed]})
+                        const logchannel = client.channels.cache.get("933466078145822720")
+                        const unmutedLogEmbed = new Discord.MessageEmbed()
+                        .setColor("#FFF700")
+                        .setTitle("mutelog")
+                        .setDescription(`${message.author} unmuted ${member}`)
+                        logchannel.send({embeds:[unmutedLogEmbed]})
                     } catch {
                         message.channel.send("It looks like my role perms are insufficient. You can fix this by draging my role higher than the role i need to give")
                     }

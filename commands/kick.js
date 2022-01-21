@@ -13,7 +13,13 @@ module.exports = {
                     .setColor("#3042B1")
                     .setTitle("Je kickde " + user.user.username);
 
-                    await message.channel.send({embeds:[youKickedEmbed]});;
+                    await message.channel.send({embeds:[youKickedEmbed]})
+                    const logchannel = client.channels.cache.get("933466078145822720")
+                    const kickedLogEmbed = new Discord.MessageEmbed()
+                    .setColor("#FF0000")
+                    .setTitle("kicklog")
+                    .setDescription(`${message.author} kicked ${member}`)
+                    logchannel.send({embeds:[kickedLogEmbed]})
                 } catch {
                     const youCantKickStafEmbed = new Discord.MessageEmbed()
                     .setColor("#FF0000")
