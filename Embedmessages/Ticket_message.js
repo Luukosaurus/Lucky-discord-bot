@@ -6,6 +6,7 @@ module.exports = async (client,Discord) => {
     const ticketInfoEmbed = new Discord.MessageEmbed()
         .setColor("#3042B1")
         .setTitle("Ticket regels")
+        .setThumbnail(guild.iconURL())
         .setDescription(`📧┃Voor het aanmaken van tickets moet je je aan deze regels houden. \n
         -Niet onnodig meer dan een ticket aan maken.
         -Geen ticket aanmaken verdwenen items(despawn, breken, lava, cactus) een item kan niet verdwijnen door een glitch.
