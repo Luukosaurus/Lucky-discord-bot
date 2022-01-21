@@ -2,7 +2,15 @@ module.exports = async (client,Discord) => {
     const ticketemoji = "📬";
     const guild = client.guilds.cache.get("932313950828253244")
     const ticketchannel = guild.channels.cache.get("932333831502069861")
-    ticketchannel.bulkDelete(1);
+    ticketchannel.bulkDelete(2);
+    const ticketInfoEmbed = new Discord.MessageEmbed()
+        .setColor("#3042B1")
+        .setTitle("Ticket regels")
+        .setDescription(`📧┃Voor het aanmaken van tickets moet je je aan deze regels houden. \n
+        -Niet onnodig meer dan een ticket aan maken.
+        -Geen ticket aanmaken verdwenen items(despawn, breken, lava, cactus) een item kan niet verdwijnen door een glitch.
+        -Je ticket is niet jou eigendom we kunnen mensen toevoegen en jou verwijderen indien nodig.`)
+        ticketchannel.send({embeds:[ticketInfoEmbed]});
     let ticketEmbed = new Discord.MessageEmbed()
         .setColor("#3042B1")
         .setTitle("Maak een ticket aan")
