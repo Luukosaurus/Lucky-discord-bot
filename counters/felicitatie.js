@@ -1,5 +1,5 @@
 const fs = require("fs");
-module.exports = async (client) => {
+module.exports = async (client,Discord) => {
     const guild = client.guilds.cache.get("932313950828253244")
     var gefeliciteerddone = false;
     const felicitijd = 12
