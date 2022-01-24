@@ -10,7 +10,7 @@ module.exports = async (client,Discord) => {
                 .setColor("#3042B1")
                 .setTitle("📜┃regels")
                 .setThumbnail(guild.iconURL())
-                .addFields({name:"Algemenen regels", value:`Dit zijn de regels waar je je aan moet houden in zowel de Discord server als de Minecraft server.
+                .addFields({name:"Algemene regels", value:`Dit zijn de regels waar je je aan moet houden in zowel de Discord server als de Minecraft server.
 
                 -Niet schelden spammen of dergelijken (Dit geldt ook voor spraak kanalen).
                 -Niet ongepaste(NSFW) foto's of videos of links verspreiden.
