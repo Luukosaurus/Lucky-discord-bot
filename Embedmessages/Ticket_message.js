@@ -41,10 +41,8 @@ module.exports = async (client,Discord) => {
                     VIEW_CHANNEL: false
                 })
                 channel.permissionOverwrites.edit(user,{
-                    SEND_MESSAGES: true,
                     VIEW_CHANNEL: true
                 })
-                const ticketOwner = user
                 const ticketOpenEmbed = new Discord.MessageEmbed()
                 .setColor("#3042B1")
                 .setTitle("Bedankt voor het contacteren van support stel hier je vraag ");
@@ -55,43 +53,6 @@ module.exports = async (client,Discord) => {
                 } catch (err){
                     throw err;
                 }
-                const collector = ticketMessage.createReactionCollector((reaction,user)=> 
-                  guild.members.cache.find((member)=> member.id === user.id).hasPermission("ADMINISTRATOR"),
-                  {dispose: true }
-                );
-                //console.log(guild.members.cache.find((member)=> member.id === user.id))
-                collector.on('collect', (reaction,user) => {
-                    if (!user.bot){
-                        const member = guild.members.cache.get(user.id)
-                        if (member.permissions.has("MANAGE_CHANNELS")){
-                            switch (reaction.emoji.name){
-                                case "🔒":
-                                    reaction.users.remove(user.id)
-                                    if(!channel.permissionsFor(channel.guild.roles.everyone).has("SEND_MESSAGES")){
-                                        channel.permissionOverwrites.edit(ticketOwner,{SEND_MESSAGES: true})
-                                        channel.permissionOverwrites.edit(channel.guild.roles.everyone,{SEND_MESSAGES: true})
-                                        channel.send("kanaal is niet meer op slot")
-                                        break;
-                                    } else {
-                                        channel.permissionOverwrites.edit(ticketOwner,{SEND_MESSAGES: false})
-                                        channel.permissionOverwrites.edit(channel.guild.roles.everyone,{SEND_MESSAGES: false})
-                                        channel.send("kanaal is op slot")
-                                        break;
-                                    }
-                                case "🚫":
-                                    channel.send("kanaal wordt verwijdert")
-                                    function deleteIfCan(){
-                                        if(guild.channels.cache.get(channel.id) !== undefined){
-                                            channel.delete()
-                                        }
-                                    }
-                                    setTimeout(()=> deleteIfCan(), 10000);
-                                    break;
-                            }
-                        }
-                        
-                    }
-                })
             }
         }
     })
