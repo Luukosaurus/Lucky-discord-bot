@@ -20,6 +20,7 @@ module.exports = async (client,Discord) => {
                 -Niet bedrijgen(zowel irl bedreigingen zoals DDOS als ingame).
                 -Niet scammen
                 -Niet bedelen bij spellers of staff.(Bijvoorbeeld vragen om keys van anderen spelers of rank van staff)
+                -Geen ongepaste gesprekken zoals role-play en dergelijken
                 \u200B`},
                 {name:"Minecraft regels", value:`Dit zijn de regels die specifiek gelden voor de Minecraft server.
 
