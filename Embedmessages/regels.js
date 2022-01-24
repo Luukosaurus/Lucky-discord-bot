@@ -32,6 +32,7 @@ module.exports = async (client,Discord) => {
                 -Je bent niet welkom op de server met een ongepaste naam of skin.
                 -Niet de server proberen te laten crashen of laggen.
                 -Ingame spullen mogen niet door worden verkocht voor echt geld
+                -Het is niet toegestaan om alt accounts te gebruiken(Indien je met een alt inlogt wordt dit account verbannen en kan je er nog een straf op je hooft account aan over houden)
                 \u200B`},
                 {name:"Discord regels",value:`Dit zijn de regels die specifiek gelden voor de Discord server.
                 
