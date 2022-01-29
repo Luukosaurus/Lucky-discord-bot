@@ -35,12 +35,11 @@ module.exports = async (client,Discord) => {
             if (reaction.emoji.name === ticketemoji){
                 reaction.users.remove(user.id)
                 const channel = await guild.channels.create(`ticket: ${user.tag}`)
-                channel.setParent("932610810574934017")
-                channel.permissionOverwrites.edit(guild.id,{
-                    SEND_MESSAGES: false,
-                    VIEW_CHANNEL: false
+                await channel.setParent("932610810574934017")
+                await channel.permissionOverwrites.edit(guild.id,{
+                    SEND_MESSAGES: true,
                 })
-                channel.permissionOverwrites.edit(user,{
+                await channel.permissionOverwrites.edit(user,{
                     VIEW_CHANNEL: true
                 })
                 const ticketOpenEmbed = new Discord.MessageEmbed()
