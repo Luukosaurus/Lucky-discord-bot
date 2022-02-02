@@ -52,6 +52,12 @@ module.exports = async (client,Discord) => {
                 } catch (err){
                     throw err;
                 }
+                const logchannel = client.channels.cache.get("933466078145822720")
+                const ticketLogEmbed = new Discord.MessageEmbed()
+                .setColor("#999999")
+                .setTitle("leftlog")
+                .setDescription(`ticket aangemaakt ${channel}`)
+                logchannel.send({embeds:[ticketLogEmbed]})
             }
         }
     })
