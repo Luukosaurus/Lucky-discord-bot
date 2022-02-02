@@ -33,6 +33,7 @@ module.exports = {
                             fs.writeFile(`./verjaardagensaves/verjaardagen.json`, verjaardagenstring,function (err) {
                                 if (err) {console.log(err)};
                             });
+                        message.channel.send("Je vierjaardag is toegevoegd op de datum " +args[1] +" "+ args[2] )
                     })
                 } else {
                     console.log("foute datum")
