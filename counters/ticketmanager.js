@@ -1,3 +1,4 @@
+const fs = require('fs');
 module.exports = async (client,Discord) => {
     const guild = client.guilds.cache.get("932313950828253244")
     const lockemoji = "🔒"
@@ -19,6 +20,24 @@ module.exports = async (client,Discord) => {
                             channel.delete()
                         }
                     }
+                    const logchannel = client.channels.cache.get("933466078145822720")
+                    const transcriptchannel = client.channels.cache.get("938562479418667050")
+                    const ticketLogEmbed = new Discord.MessageEmbed()
+                    .setColor("#999999")
+                    .setTitle("ticketlog")
+                    .setDescription(`${channel.name} gesloten door ${user}`)
+                    logchannel.send({embeds:[ticketLogEmbed]})
+                    var text = "berichten"
+                    await channel.messages.fetch().then(messages => {
+                        messages.forEach(message => {
+                            text += `${message.content.toString()} \n`
+                        })
+                    })
+                    const transEmbed = new Discord.MessageEmbed()
+                    .setColor("#999999")
+                    .setTitle(channel.name)
+                    .setDescription(text)
+                    transcriptchannel.send({embeds:[transEmbed]})
                     setTimeout(()=> deleteIfCan(), 10000);
                 }
                 if (reaction.emoji.name === lockemoji){

@@ -5,3 +5,4 @@ varsaver.json
 node_modules/
 server_data/
 verjaardagensaves/
+temp/

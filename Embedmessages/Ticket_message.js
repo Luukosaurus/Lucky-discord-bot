@@ -56,7 +56,7 @@ module.exports = async (client,Discord) => {
                 const ticketLogEmbed = new Discord.MessageEmbed()
                 .setColor("#999999")
                 .setTitle("ticketlog")
-                .setDescription(`ticket aangemaakt ${channel}`)
+                .setDescription(`ticket aangemaakt ${channel} door ${user}`)
                 logchannel.send({embeds:[ticketLogEmbed]})
             }
         }
