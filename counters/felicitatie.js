@@ -33,11 +33,11 @@ module.exports = async (client,Discord) => {
                             } catch {
                                 console.log("deleted user")
                             }
-                            
-                        } else {
-                            console.log("niet jarig")
                         }
                     }
+                }
+                if(!gefeliciteerddone){
+                    console.log("niemand jarig")
                 }
             })
         }
