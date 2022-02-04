@@ -14,7 +14,7 @@ module.exports = (client, Discord , message) =>{
         if(!message.content.startsWith(prefix) || message.author.bot) return;
         const args = message.content.slice(prefix.length).split(/ +/);
         const command = args.shift().toLowerCase();
-        const c = client.commands.get(command)
+        const c = client.commands.get(command) || client.commands.find(a => a.aliases && a.aliases.includes(command))
         if (c) c.execute(client,message, args , Discord , myGuildPrefixes);
     });
     if (message.content.includes("https://") || message.content.includes("http://") || message.content.includes("www.")) {
