@@ -27,8 +27,9 @@ module.exports = async (client,Discord) => {
                     .setTitle("ticketlog")
                     .setDescription(`${channel.name} gesloten door ${user}`)
                     logchannel.send({embeds:[ticketLogEmbed]})
-                    var text = "berichten"
+                    var text = "berichten \n"
                     await channel.messages.fetch().then(messages => {
+                        messages = messages.reverse()
                         messages.forEach(message => {
                             text += `${message.content.toString()} \n`
                         })
