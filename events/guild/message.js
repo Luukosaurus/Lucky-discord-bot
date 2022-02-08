@@ -1,4 +1,5 @@
 const fs = require("fs");
+const cansendlist = {}
 module.exports = (client, Discord , message) =>{
     const guildid = message.guild.id;
     const guildFile = guildid+".json"
@@ -17,6 +18,41 @@ module.exports = (client, Discord , message) =>{
         const c = client.commands.get(command) || client.commands.find(a => a.aliases && a.aliases.includes(command))
         if (c) c.execute(client,message, args , Discord , myGuildPrefixes);
     });
+    if(cansendlist[message.author.id]){
+        if(!message.author.bot){
+            fs.readFile(`./levels/luckylevels.json`, "utf8", (err, jsonString) => {
+                if (err) {
+                    console.log("File read failed:", err);
+                    return;
+                }
+                const levels = JSON.parse(jsonString)
+                try{
+                    try{
+                        levels[message.author.id].xp += 1
+                    } catch {
+                        levels[message.author.id].xp = 1
+                    }
+                } catch{
+                    levels[message.author.id] = {}
+                    levels[message.author.id].xp = 1
+                }
+                const dictstring = JSON.stringify(levels,null,2);
+                fs.writeFile(`./levels/luckylevels.json`, dictstring,function (err) {
+                    if (err) {console.log(err)};
+                });
+            })
+        }
+        cansendlist[message.author.id] = false
+        setTimeout(()=> cansendlist[message.author.id] = true, 60000);
+    } else {
+        setTimeout(()=> {
+            if(!cansendlist[message.author.id]){
+                cansendlist[message.author.id] = true
+            }
+        }, 60000);
+    }
+    
+    
     if (message.content.includes("https://") || message.content.includes("http://") || message.content.includes("www.")) {
         if(message.content.includes("nitro")){
 			message.delete(1);
