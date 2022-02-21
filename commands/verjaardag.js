@@ -1,6 +1,7 @@
 const fs = require('fs');
 module.exports = {
     name: 'verjaardag',
+    aliases: ["birthday","bd","jarig"],
     description: "voegt iemands vierjaardag toe aan het systeem",
     execute(client, message, args , Discord){
         if(args[0])

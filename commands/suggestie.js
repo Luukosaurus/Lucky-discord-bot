@@ -1,5 +1,6 @@
 module.exports = {
     name: 'suggestie',
+    aliases: ["suggest","suggestion","suggesties"],
     description: "make a suggestion in a channel",
     async execute(client, message, args, Discord,myGuildPrefixes){
         if(args.length == 0) return;
