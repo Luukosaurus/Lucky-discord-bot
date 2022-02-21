@@ -10,7 +10,7 @@ module.exports = async (client,Discord) => {
         if (reaction.partial) await reaction.fetch();
         if (user.bot) return;
         //console.log(ticketOwner)
-        if(ticketOwner.roles.cache.get("932316115240091730") || ticketOwner.roles.cache.get("932318004975390742") || ticketOwner.roles.cache.get("932318093206765578")){
+        if(ticketOwner.roles.cache.get("932316115240091730") || ticketOwner.roles.cache.get("932318004975390742") || ticketOwner.roles.cache.get("932318093206765578") || ticketOwner.roles.cache.get("933380061707513856") ){
             if (!reaction.message.guild) return;
             if (reaction.message.channel.parent.id == "932610810574934017"){
                 if (reaction.emoji.name === closeemoji){
