@@ -18,7 +18,7 @@ module.exports = async (client,Discord) => {
                     function deleteIfCan(){
                         if(guild.channels.cache.get(channel.id) !== undefined){
                             channel.delete()
-                            transcriptchannel.send({embeds:[transEmbed]})
+                            //transcriptchannel.send({embeds:[transEmbed]})
                         }
                     }
                     const logchannel = client.channels.cache.get("933466078145822720")
@@ -32,13 +32,9 @@ module.exports = async (client,Discord) => {
                     await channel.messages.fetch().then(messages => {
                         messages = messages.reverse()
                         messages.forEach(message => {
-                            console.log(message)
                             const timestamp = message.createdTimestamp
-                            console.log(timestamp)
                             const d = new Date(timestamp);
-                            console.log(d)
                             const date = "date:" + d.getDay() + "-" + d.getMonth()  + "-" + d.getUTCFullYear()  + " time:" + d.getHours() + "-" + d.getMinutes();
-                            console.log(date)
                             text += `${date} user:${message.author}: ${message.content.toString()} \n`
                         })
                     })
