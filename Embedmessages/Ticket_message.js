@@ -1,5 +1,7 @@
+const fs = require('fs');
 module.exports = async (client,Discord) => {
     const ticketemoji = "📬";
+    const soliemoji = "✉️";
     const guild = client.guilds.cache.get("932313950828253244")
     const ticketchannel = guild.channels.cache.get("932333831502069861")
     ticketchannel.messages.fetch().then(async (messages) => {
@@ -7,7 +9,6 @@ module.exports = async (client,Discord) => {
         if(oldmessage){
             console.log("old ticket")
         } else {
-            ticketchannel.bulkDelete(2);
             const ticketInfoEmbed = new Discord.MessageEmbed()
                 .setColor("#3042B1")
                 .setTitle("Ticket regels")
@@ -20,9 +21,10 @@ module.exports = async (client,Discord) => {
             let ticketEmbed = new Discord.MessageEmbed()
                 .setColor("#3042B1")
                 .setTitle("Maak een ticket aan")
-                .setDescription("Klik op de emoji om een ticket aan te maken ")
+                .setDescription("Klik op de 📬 om een ticket aan te maken \nKlik op de ✉️ om een sollicitatie aan te maken ")
             let messageEmbed = await ticketchannel.send({embeds: [ticketEmbed]});
             messageEmbed.react(ticketemoji);
+            messageEmbed.react(soliemoji);
         }
     })
     
@@ -33,31 +35,158 @@ module.exports = async (client,Discord) => {
         if (!reaction.message.guild) return;
         if (reaction.message.channel.id == "932333831502069861"){
             if (reaction.emoji.name === ticketemoji){
-                reaction.users.remove(user.id)
-                const channel = await guild.channels.create(`ticket: ${user.tag}`)
-                await channel.setParent("932610810574934017")
-                await channel.permissionOverwrites.edit(guild.id,{
-                    SEND_MESSAGES: true,
+                fs.readFile(`./ticketsafe/ticketcount.json`, "utf8", (err, jsonString) => {
+                    if (err) {
+                        console.log("File read failed:", err);
+                        return;
+                    }
+                    const ticketvars = JSON.parse(jsonString)
+                    if(!ticketvars[user.id]){
+                       ticketvars[user.id] = {} 
+                    }
+                    reaction.users.remove(user.id)
+                    if(ticketvars[user.id].tickets > 0){
+                       setTimeout(() => {
+                            ticketvars[user.id].tickets = 0
+                            console.log(ticketvars[user.id].tickets)
+                            const ticketstring = JSON.stringify(ticketvars,null,2);
+                            fs.writeFile(`./ticketsafe/ticketcount.json`, ticketstring,function (err) {
+                                if (err) {console.log(err)};
+                            });
+                        },1800000);
+                    }
+                    else if(ticketvars[user.id].tickets == 0 || ticketvars[user.id].tickets == null){
+                        ticketvars[user.id].tickets = 1
+                        createticket()
+                        setTimeout(() => {
+                            ticketvars[user.id].tickets = 0 
+                            const ticketstring = JSON.stringify(ticketvars,null,2);
+                            fs.writeFile(`./ticketsafe/ticketcount.json`, ticketstring,function (err) {
+                                if (err) {console.log(err)};
+                            }); 
+                        },1800000);
+                    } 
+                    else if(ticketvars[user.id].tickets == 1){
+                        ticketvars[user.id].tickets = 2
+                        createticket()
+                        setTimeout(() => {
+                            ticketvars[user.id].tickets = 0
+                            const ticketstring = JSON.stringify(ticketvars,null,2);
+                            fs.writeFile(`./ticketsafe/ticketcount.json`, ticketstring,function (err) {
+                                if (err) {console.log(err)};
+                            });
+                        },1800000);
+                    }
+                    
+                    const ticketstring = JSON.stringify(ticketvars,null,2);
+                    fs.writeFile(`./ticketsafe/ticketcount.json`, ticketstring,function (err) {
+                        if (err) {console.log(err)};
+                    });
                 })
-                await channel.permissionOverwrites.edit(user,{
-                    VIEW_CHANNEL: true
-                })
-                const ticketOpenEmbed = new Discord.MessageEmbed()
-                .setColor("#3042B1")
-                .setTitle("Bedankt voor het contacteren van support stel hier je vraag ");
-                const ticketMessage = await channel.send({embeds:[ticketOpenEmbed]})
-                try{
-                    await ticketMessage.react("🔒")
-                    await ticketMessage.react("🚫")
-                } catch (err){
-                    throw err;
+                async function createticket(){
+                    
+                    const channel = await guild.channels.create(`ticket: ${user.tag}`)
+                    await channel.setParent("932610810574934017")
+                    await channel.permissionOverwrites.edit(guild.id,{
+                        SEND_MESSAGES: true,
+                    })
+                    await channel.permissionOverwrites.edit(user,{
+                        VIEW_CHANNEL: true
+                    })
+                    const ticketOpenEmbed = new Discord.MessageEmbed()
+                    .setColor("#3042B1")
+                    .setTitle("Bedankt voor het contacteren van support stel hier je vraag ");
+                    const ticketMessage = await channel.send({embeds:[ticketOpenEmbed]})
+                    try{
+                        await ticketMessage.react("🔒")
+                        await ticketMessage.react("🚫")
+                    } catch (err){
+                        throw err;
+                    }
+                    const logchannel = client.channels.cache.get("933466078145822720")
+                    const ticketLogEmbed = new Discord.MessageEmbed()
+                    .setColor("#999999")
+                    .setTitle("ticketlog")
+                    .setDescription(`ticket aangemaakt ${channel} door ${user}`)
+                    logchannel.send({embeds:[ticketLogEmbed]})
                 }
-                const logchannel = client.channels.cache.get("933466078145822720")
-                const ticketLogEmbed = new Discord.MessageEmbed()
-                .setColor("#999999")
-                .setTitle("ticketlog")
-                .setDescription(`ticket aangemaakt ${channel} door ${user}`)
-                logchannel.send({embeds:[ticketLogEmbed]})
+            }
+            if (reaction.emoji.name === soliemoji){
+                fs.readFile(`./ticketsafe/ticketcount.json`, "utf8", (err, jsonString) => {
+                    if (err) {
+                        console.log("File read failed:", err);
+                        return;
+                    }
+                    const ticketvars = JSON.parse(jsonString)
+                    if(!ticketvars[user.id]){
+                       ticketvars[user.id] = {} 
+                    }
+                    reaction.users.remove(user.id)
+                    if(ticketvars[user.id].sollis > 0){
+                       setTimeout(() => {
+                            ticketvars[user.id].sollis = 0
+                            console.log(ticketvars[user.id].sollis)
+                            const ticketstring = JSON.stringify(ticketvars,null,2);
+                            fs.writeFile(`./ticketsafe/ticketcount.json`, ticketstring,function (err) {
+                                if (err) {console.log(err)};
+                            });
+                        },1800000);
+                    }
+                    else if(ticketvars[user.id].sollis == 0 || ticketvars[user.id].sollis == null){
+                        ticketvars[user.id].sollis = 1
+                        createticket()
+                        setTimeout(() => {
+                            ticketvars[user.id].sollis = 0 
+                            const ticketstring = JSON.stringify(ticketvars,null,2);
+                            fs.writeFile(`./ticketsafe/ticketcount.json`, ticketstring,function (err) {
+                                if (err) {console.log(err)};
+                            }); 
+                        },1800000);
+                    } 
+                    else if(ticketvars[user.id].sollis == 1){
+                        ticketvars[user.id].sollis = 2
+                        createticket()
+                        setTimeout(() => {
+                            ticketvars[user.id].sollis = 0
+                            const ticketstring = JSON.stringify(ticketvars,null,2);
+                            fs.writeFile(`./ticketsafe/ticketcount.json`, ticketstring,function (err) {
+                                if (err) {console.log(err)};
+                            });
+                        },1800000);
+                    }
+                    
+                    const ticketstring = JSON.stringify(ticketvars,null,2);
+                    fs.writeFile(`./ticketsafe/ticketcount.json`, ticketstring,function (err) {
+                        if (err) {console.log(err)};
+                    });
+                })
+                async function createticket(){
+                    
+                    const channel = await guild.channels.create(`Sollicitatie: ${user.tag}`)
+                    await channel.setParent("954338585530761247")
+                    await channel.permissionOverwrites.edit(guild.id,{
+                        SEND_MESSAGES: true,
+                    })
+                    await channel.permissionOverwrites.edit(user,{
+                        VIEW_CHANNEL: true
+                    })
+                    const ticketOpenEmbed = new Discord.MessageEmbed()
+                    .setColor("#3042B1")
+                    .setTitle("Bedankt voor het aanmaken van een sollicitatie");
+                    const ticketMessage = await channel.send({embeds:[ticketOpenEmbed]})
+                    try{
+                        await ticketMessage.react("🔒")
+                        await ticketMessage.react("🚫")
+                    } catch (err){
+                        throw err;
+                    }
+                    const logchannel = client.channels.cache.get("933466078145822720")
+                    const ticketLogEmbed = new Discord.MessageEmbed()
+                    .setColor("#999999")
+                    .setTitle("sollicitatielog")
+                    .setDescription(`sollicitatie aangemaakt ${channel} door ${user}`)
+                    logchannel.send({embeds:[ticketLogEmbed]})
+                }
             }
         }
     })

@@ -12,7 +12,7 @@ module.exports = async (client,Discord) => {
         //console.log(ticketOwner)
         if(ticketOwner.roles.cache.get("932316115240091730") || ticketOwner.roles.cache.get("932318004975390742") || ticketOwner.roles.cache.get("932318093206765578") || ticketOwner.roles.cache.get("933380061707513856") ){
             if (!reaction.message.guild) return;
-            if (reaction.message.channel.parent.id == "932610810574934017"){
+            if (reaction.message.channel.parent.id == "932610810574934017" || reaction.message.channel.parent.id == "954338585530761247"){
                 if (reaction.emoji.name === closeemoji){
                     channel.send("kanaal wordt verwijdert")
                     function deleteIfCan(){
