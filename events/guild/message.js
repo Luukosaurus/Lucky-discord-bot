@@ -54,7 +54,7 @@ module.exports = (client, Discord , message) =>{
     
     
     if (message.content.includes("https://") || message.content.includes("http://") || message.content.includes("www.")) {
-        if(message.content.includes("nitro")){
+        if(message.content.includes("nitro") || message.content.includes("Nitro")){
 			message.delete(1);
 			message.channel.send(`${message.author} Het is niet toegestaan om het woord "nitro" te gebruiken in combinatie met een link`)
 			const nitroMessageEmbed = new Discord.MessageEmbed()
