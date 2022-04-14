@@ -1,5 +1,6 @@
 const felicitatie = require("../../counters/felicitatie");
 const getmessages = require("../../counters/getmessages");
+const ledencounter = require("../../counters/ledencounter");
 const memberCounter = require("../../counters/member-counter");
 const Ticketmanager = require("../../counters/ticketmanager");
 const reactionrole = require("../../Embedmessages/reactionrole");
@@ -14,4 +15,5 @@ module.exports = (client, Discord) =>{
     felicitatie(client,Discord)
     getmessages(client,Discord)
     Ticketmanager(client,Discord)
+    ledencounter(client,Discord)
 }
