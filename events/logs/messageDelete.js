@@ -2,6 +2,7 @@ module.exports = async (client,Discord,message) =>{
     const logchannel = client.channels.cache.get("933466078145822720")
     if(!message.author.bot){
         if(message.attachments.toJSON()[0] != null){
+            if(message.content.length > 2000)return;
             const deleteMessageEmbed = new Discord.MessageEmbed()
                 .setColor("#FF0000")
                 .setTitle("chatlog")
@@ -9,6 +10,7 @@ module.exports = async (client,Discord,message) =>{
                 .setImage(message.attachments.toJSON()[0]["url"]) 
                 logchannel.send({embeds:[deleteMessageEmbed]})
         } else {
+            if(message.content.length > 2000) return;
             const deleteMessageEmbed = await new Discord.MessageEmbed()
                 .setColor("#FF0000")
                 .setTitle("chatlog")
