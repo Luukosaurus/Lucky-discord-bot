@@ -9,7 +9,7 @@ module.exports = async (client,Discord) => {
         if (teldone){
             teldone = false
         }else if( teltijd == datum.getHours()){
-            fs.readFile(`./data/ledencount.txt`, "utf8", async(err, String) => {
+            fs.readFile(`./data/ledencount.txt`, "utf8", (err, String) => {
                 if (err) {
                     console.log("File read failed:", err);
                     return;
